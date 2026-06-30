@@ -81,11 +81,11 @@ export default function About() {
               <span className="text-white font-medium">IIT Delhi</span> I built TamraBot — a
               production NLP system achieving 79–81% intent accuracy using FastAPI and
               OpenRouter. At{" "}
-              <span className="text-white font-medium">OranjeStride</span> I build GenAI
+              <span className="text-white font-medium">OranjeStride</span> I built GenAI
               pipelines that replace manual reporting and extract acquisition insights from
-              business data automatically. At{" "}
-              <span className="text-white font-medium">Angel One</span> I applied ML and
-              analytics to large-scale financial and trading data.
+              business data automatically. Most recently, at{" "}
+              <span className="text-white font-medium">Angel One</span>, I&apos;ve been applying ML
+              and analytics to large-scale financial and trading data.
             </p>
             <p>
               My research interests centre on{" "}

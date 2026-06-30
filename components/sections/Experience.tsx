@@ -8,29 +8,10 @@ type ExpLink = { label: string; url: string };
 
 const experiences = [
   {
-    company: "OranjeStride",
-    role: "Data Science & Generative AI Intern",
-    period: "Apr 2026 – Present",
-    type: "Current",
-    location: "Remote",
-    description:
-      "Building GenAI-powered data science systems — LLM pipelines over structured business data, automated insight extraction, NRB-aligned credit evaluation, and end-to-end ML reporting infrastructure.",
-    highlights: [
-      "Built a Nepal Rastra Bank (NRB)-aligned credit-appraisal GenAI workbench — automated credit memos, covenant-compliance checks & financial-statement analysis (under NDA)",
-      "Engineered DataStride, a full-stack SQL learning platform (React + Supabase) with in-browser query execution (under NDA)",
-      "Designed RAG pipelines and LLM-as-judge evaluation harnesses scoring outputs across accuracy, hallucination & format dimensions",
-      "Replaced manual reporting workflows with LLM-generated executive summaries and decision intelligence",
-      "Conducted applied research on prompt engineering, retrieval strategies, and structured-output evaluation",
-    ],
-    tech: ["Python", "GenAI", "RAG", "LLMs", "React", "Supabase", "FastAPI", "Prompt Eng."],
-    confidential: true,
-    color: "indigo",
-  },
-  {
     company: "Angel One",
     role: "Data Science Intern",
-    period: "Aug 2025 – Mar 2026",
-    type: "Past",
+    period: "Jun 2026 – Jul 2026",
+    type: "Current",
     location: "India · Remote",
     description:
       "Applied machine learning and analytics on large-scale financial and trading data at one of India's largest retail stock-broking & fintech platforms — turning market and user-behaviour signals into actionable models.",
@@ -43,6 +24,25 @@ const experiences = [
     ],
     tech: ["Python", "Pandas", "Scikit-learn", "SQL", "A/B Testing", "Feature Engineering", "Fintech"],
     color: "blue",
+  },
+  {
+    company: "OranjeStride",
+    role: "Data Science & Generative AI Intern",
+    period: "Jan 2026 – May 2026",
+    type: "Past",
+    location: "Remote",
+    description:
+      "Built GenAI-powered data science systems — LLM pipelines over structured business data, automated insight extraction, NRB-aligned credit evaluation, and end-to-end ML reporting infrastructure.",
+    highlights: [
+      "Built a Nepal Rastra Bank (NRB)-aligned credit-appraisal GenAI workbench — automated credit memos, covenant-compliance checks & financial-statement analysis (under NDA)",
+      "Engineered DataStride, a full-stack SQL learning platform (React + Supabase) with in-browser query execution (under NDA)",
+      "Designed RAG pipelines and LLM-as-judge evaluation harnesses scoring outputs across accuracy, hallucination & format dimensions",
+      "Replaced manual reporting workflows with LLM-generated executive summaries and decision intelligence",
+      "Conducted applied research on prompt engineering, retrieval strategies, and structured-output evaluation",
+    ],
+    tech: ["Python", "GenAI", "RAG", "LLMs", "React", "Supabase", "FastAPI", "Prompt Eng."],
+    confidential: true,
+    color: "indigo",
   },
   {
     company: "IIT Delhi",
