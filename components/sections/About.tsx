@@ -83,7 +83,9 @@ export default function About() {
               OpenRouter. At{" "}
               <span className="text-white font-medium">OranjeStride</span> I build GenAI
               pipelines that replace manual reporting and extract acquisition insights from
-              business data automatically.
+              business data automatically. At{" "}
+              <span className="text-white font-medium">Angel One</span> I applied ML and
+              analytics to large-scale financial and trading data.
             </p>
             <p>
               My research interests centre on{" "}

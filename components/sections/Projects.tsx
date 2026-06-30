@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Github, Star, GitFork, ExternalLink, Search } from "lucide-react";
+import { Github, Star, GitFork, ExternalLink, Search, Lock } from "lucide-react";
 import SectionHeader from "@/components/shared/SectionHeader";
 
 interface Repo {
@@ -19,21 +19,16 @@ interface Repo {
   featured?: boolean;
   featuredDescription?: string;
   category?: string;
+  nda?: boolean;
+  ndaNote?: string;
 }
 
+// Repos featured manually above; also excluded from the auto "All Repositories" grid
+// to avoid duplicate / NDA exposure.
+const excludeFromGrid = ["datastride_sql_platform"];
+
 const featuredProjects: Partial<Repo>[] = [
-  {
-    name: "GenAI Business Intelligence",
-    description:
-      "RAG-style LLM pipelines over structured business data — automated reporting, acquisition insight extraction, and stakeholder-ready GenAI summaries at OranjeStride.",
-    featuredDescription:
-      "Production GenAI system replacing manual data analysis. LLMs + business data = decision intelligence.",
-    featured: true,
-    category: "Generative AI",
-    language: "Python",
-    topics: ["generative-ai", "rag", "llm", "business-intelligence", "openai", "data-pipeline"],
-    html_url: "https://github.com/hiemalrana22",
-  },
+  // ── Deployed · live projects (shown first) ──────────────────────────────
   {
     name: "TamraBot — Ayurvedic GenAI",
     description:
@@ -41,35 +36,78 @@ const featuredProjects: Partial<Repo>[] = [
     featuredDescription:
       "End-to-end GenAI system: data collection → NLP pipeline → LLM orchestration → production API.",
     featured: true,
-    category: "Generative AI",
+    category: "Generative AI · Live",
     language: "Python",
     topics: ["fastapi", "llm", "nlp", "rag", "openrouter", "intent-detection", "healthcare-ai"],
     html_url: "https://tamrabot.vercel.app/",
     homepage: "https://tamrabot.vercel.app/",
   },
   {
-    name: "S&P 500 Earnings Call NLP",
+    name: "Customer Churn Prediction",
     description:
-      "Data science pipeline on SEC EDGAR transcripts — FinBERT fine-tuned on financial language to predict directional stock movement from earnings call sentiment.",
+      "Telco churn risk model — SQL access → hypothesis testing → calibrated XGBoost (ROC-AUC 0.843) → SHAP → ROI / A-B-test layer → live Streamlit app. ~$1.66M/yr revenue at risk surfaced as a dollar-ranked call list.",
     featuredDescription:
-      "Financial data science: scraping → EDA → NLP feature engineering → FinBERT → stock signal.",
+      "Data science with a P&L: calibrated model → SHAP drivers → revenue-ranked retention list.",
     featured: true,
-    category: "Data Science · Financial NLP",
+    category: "Data Science · Live",
     language: "Python",
-    topics: ["finbert", "financial-nlp", "sec-edgar", "data-science", "transformers", "pandas"],
-    html_url: "https://github.com/hiemalrana22",
+    topics: ["xgboost", "shap", "calibration", "streamlit", "churn", "data-science"],
+    html_url: "https://github.com/hiemalrana22/customer_churn_prediction",
+    homepage: "https://customerchurnprediction-wrdtyrnpxtw6p4crk8ownm.streamlit.app/",
   },
   {
-    name: "Heart Disease Risk Prediction",
+    name: "Medication Adherence Risk Predictor",
     description:
-      "Stacked ensemble (XGBoost + LightGBM + CatBoost) with full SHAP explainability dashboard, Optuna HPO, cross-validation, and CI/CD pipeline for healthcare risk scoring.",
+      "Predicts which patients won't take their medication — and explains why. Refill-ratio is the top driver (~36% importance). Optimised for At-Risk Recall (0.71), with SHAP, CI/CD, Docker & Grafana monitoring.",
     featuredDescription:
-      "Clinical-grade data science: rigorous EDA → feature engineering → explainable ensemble → deployment.",
+      "Healthcare ML done right: recall-first metric, leakage-safe split, explainable, deployed.",
     featured: true,
-    category: "Data Science · Healthcare",
+    category: "Healthcare ML · Live",
     language: "Python",
-    topics: ["xgboost", "lightgbm", "catboost", "shap", "optuna", "data-science", "healthcare"],
-    html_url: "https://github.com/hiemalrana22",
+    topics: ["random-forest", "shap", "healthcare", "streamlit", "ci-cd", "docker"],
+    html_url: "https://github.com/hiemalrana22/Medicine-Adherence-Risk-Predictor",
+    homepage:
+      "https://medicine-adherence-risk-predictor-hlc8weqzkz3dxft6qrwdyr.streamlit.app/",
+  },
+  {
+    name: "SEC EDGAR Earnings-Call NLP",
+    description:
+      "Extracts tone, uncertainty & evasiveness from SEC EDGAR earnings exhibits using FinBERT + engineered linguistic features, then tests whether they predict abnormal returns via a rigorous event study and cost-aware long/short backtest.",
+    featuredDescription:
+      "Reproducible quant research: FinBERT signal → event study → transaction-cost-aware backtest.",
+    featured: true,
+    category: "Financial NLP · Live",
+    language: "Python",
+    topics: ["finbert", "financial-nlp", "sec-edgar", "event-study", "backtest", "transformers"],
+    html_url: "https://github.com/hiemalrana22/sec_edgar",
+    homepage: "https://secedgar-kupayvw79fvgsil5ui3gkf.streamlit.app/",
+  },
+  // ── Internship work · under NDA (no public link) ────────────────────────
+  {
+    name: "NRB Credit-Appraisal GenAI Workbench",
+    description:
+      "Generative-AI workbench for Nepal Rastra Bank (NRB)-aligned credit appraisal — automated credit memos, covenant-compliance checks, financial-statement analysis & sanction rationale, with LLM-as-judge evaluation harnesses scoring accuracy, hallucination & format.",
+    featuredDescription:
+      "Production GenAI for regulated credit decisioning. Built during the OranjeStride internship.",
+    featured: true,
+    category: "Generative AI · Internship",
+    language: "Python",
+    topics: ["generative-ai", "rag", "llm", "fintech", "evaluation", "structured-output"],
+    nda: true,
+    ndaNote: "OranjeStride · confidential — link withheld under NDA",
+  },
+  {
+    name: "DataStride SQL Platform",
+    description:
+      "A LeetCode-style SQL learning platform — solve predefined SQL problems in an in-browser Monaco editor with query execution, Supabase auth, and an admin layer. Full-stack React + Vite frontend with a backend integration.",
+    featuredDescription:
+      "Full-stack product engineering: React + Vite + Supabase. Built during the OranjeStride internship.",
+    featured: true,
+    category: "Full-Stack · Internship",
+    language: "JavaScript",
+    topics: ["react", "vite", "supabase", "monaco-editor", "sql", "full-stack"],
+    nda: true,
+    ndaNote: "OranjeStride · confidential — link withheld under NDA",
   },
 ];
 
@@ -184,14 +222,15 @@ export default function Projects() {
       .catch(() => setLoading(false));
   }, []);
 
-  const allProjects: Partial<Repo>[] = [
-    ...featuredProjects,
-    ...repos.filter(
-      (r) => !featuredProjects.some((fp) => fp.name?.toLowerCase() === r.name.toLowerCase())
-    ),
-  ];
+  // The grid below lists the real GitHub repositories (the featured / NDA work
+  // is showcased in its own section above and is intentionally not duplicated here).
+  const gridProjects: Partial<Repo>[] = repos.filter(
+    (r) =>
+      !excludeFromGrid.includes(r.name.toLowerCase()) &&
+      !featuredProjects.some((fp) => fp.name?.toLowerCase() === r.name.toLowerCase())
+  );
 
-  const filtered = allProjects.filter((p) => {
+  const filtered = gridProjects.filter((p) => {
     const matchSearch =
       !search ||
       p.name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -235,7 +274,13 @@ export default function Projects() {
                     </span>
                     <h3 className="font-heading font-bold text-white text-lg mt-1">{p.name}</h3>
                   </div>
-                  <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    {p.nda && (
+                      <span className="flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-semibold text-zinc-400 bg-white/[0.04] border border-white/[0.1] rounded-full">
+                        <Lock size={11} />
+                        NDA
+                      </span>
+                    )}
                     {p.homepage && (
                       <a
                         href={p.homepage}
@@ -247,12 +292,13 @@ export default function Projects() {
                         Live Demo
                       </a>
                     )}
-                    {p.html_url && !p.homepage && (
+                    {p.html_url && !p.homepage && !p.nda && (
                       <a
                         href={p.html_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 text-zinc-600 hover:text-white transition-colors cursor-pointer"
+                        className="p-2 text-zinc-500 hover:text-white transition-colors cursor-pointer"
+                        aria-label={`View ${p.name} on GitHub`}
                       >
                         <Github size={15} />
                       </a>

@@ -1,12 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Bot, BarChart3, Cpu, Languages, Network, Wrench, type LucideIcon } from "lucide-react";
 import SectionHeader from "@/components/shared/SectionHeader";
 
-const skillGroups = [
+const skillGroups: {
+  category: string;
+  icon: LucideIcon;
+  color: string;
+  skills: { name: string; level: number }[];
+}[] = [
   {
     category: "Generative AI & LLMs",
-    emoji: "🤖",
+    icon: Bot,
     color: "indigo",
     skills: [
       { name: "Prompt Engineering", level: 92 },
@@ -18,7 +24,7 @@ const skillGroups = [
   },
   {
     category: "Data Science",
-    emoji: "📊",
+    icon: BarChart3,
     color: "violet",
     skills: [
       { name: "Pandas / NumPy", level: 95 },
@@ -30,7 +36,7 @@ const skillGroups = [
   },
   {
     category: "Machine Learning",
-    emoji: "⚙️",
+    icon: Cpu,
     color: "blue",
     skills: [
       { name: "XGBoost / LightGBM / CatBoost", level: 88 },
@@ -41,7 +47,7 @@ const skillGroups = [
   },
   {
     category: "NLP & Transformers",
-    emoji: "🧠",
+    icon: Languages,
     color: "purple",
     skills: [
       { name: "Hugging Face Transformers", level: 85 },
@@ -53,7 +59,7 @@ const skillGroups = [
   },
   {
     category: "Deep Learning",
-    emoji: "🔬",
+    icon: Network,
     color: "emerald",
     skills: [
       { name: "TensorFlow / Keras", level: 85 },
@@ -63,7 +69,7 @@ const skillGroups = [
   },
   {
     category: "Engineering & Tools",
-    emoji: "🛠",
+    icon: Wrench,
     color: "amber",
     skills: [
       { name: "Python", level: 96 },
@@ -84,13 +90,13 @@ const barColors: Record<string, string> = {
   amber: "from-amber-600 to-amber-400",
 };
 
-const dotColors: Record<string, string> = {
-  indigo: "bg-indigo-400",
-  violet: "bg-violet-400",
-  blue: "bg-blue-400",
-  purple: "bg-purple-400",
-  emerald: "bg-emerald-400",
-  amber: "bg-amber-400",
+const iconColors: Record<string, string> = {
+  indigo: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20",
+  violet: "text-violet-400 bg-violet-500/10 border-violet-500/20",
+  blue: "text-blue-400 bg-blue-500/10 border-blue-500/20",
+  purple: "text-purple-400 bg-purple-500/10 border-purple-500/20",
+  emerald: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+  amber: "text-amber-400 bg-amber-500/10 border-amber-500/20",
 };
 
 const marqueeItems = [
@@ -142,8 +148,12 @@ export default function Skills() {
               transition={{ duration: 0.5, delay: gi * 0.08, ease: [0.16, 1, 0.3, 1] }}
               className={`p-6 rounded-2xl bg-[#13131a] border border-white/[0.06] ${gi < 2 ? "ring-1 ring-indigo-500/10" : ""}`}
             >
-              <div className="flex items-center gap-2 mb-5">
-                <span className={`w-2 h-2 rounded-full ${dotColors[group.color]}`} />
+              <div className="flex items-center gap-2.5 mb-5">
+                <span
+                  className={`inline-flex p-1.5 rounded-lg border ${iconColors[group.color]}`}
+                >
+                  <group.icon size={15} />
+                </span>
                 <h3 className="font-heading font-semibold text-white text-sm">
                   {group.category}
                 </h3>

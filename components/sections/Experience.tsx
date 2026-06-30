@@ -1,27 +1,48 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Building2, Calendar } from "lucide-react";
+import { Building2, Calendar, ExternalLink, Lock } from "lucide-react";
 import SectionHeader from "@/components/shared/SectionHeader";
+
+type ExpLink = { label: string; url: string };
 
 const experiences = [
   {
     company: "OranjeStride",
-    role: "Data Science & Research Intern",
+    role: "Data Science & Generative AI Intern",
     period: "Apr 2026 – Present",
     type: "Current",
     location: "Remote",
     description:
-      "Building GenAI-powered data science systems — LLM pipelines over structured business data, automated insight extraction, and end-to-end ML reporting infrastructure.",
+      "Building GenAI-powered data science systems — LLM pipelines over structured business data, automated insight extraction, NRB-aligned credit evaluation, and end-to-end ML reporting infrastructure.",
     highlights: [
-      "Built RAG-style Generative AI pipelines to surface insights from raw business datasets automatically",
-      "Replaced manual reporting workflows with LLM-generated executive summaries and dashboards",
-      "Developed data-driven acquisition insight systems: EDA → feature extraction → GenAI narrative",
-      "Conducted applied research on prompt engineering, model evaluation, and retrieval strategies",
-      "Architected production GenAI solutions connecting structured SQL data with LLM reasoning layers",
+      "Built a Nepal Rastra Bank (NRB)-aligned credit-appraisal GenAI workbench — automated credit memos, covenant-compliance checks & financial-statement analysis (under NDA)",
+      "Engineered DataStride, a full-stack SQL learning platform (React + Supabase) with in-browser query execution (under NDA)",
+      "Designed RAG pipelines and LLM-as-judge evaluation harnesses scoring outputs across accuracy, hallucination & format dimensions",
+      "Replaced manual reporting workflows with LLM-generated executive summaries and decision intelligence",
+      "Conducted applied research on prompt engineering, retrieval strategies, and structured-output evaluation",
     ],
-    tech: ["Python", "GenAI", "RAG", "LLMs", "Pandas", "SQL", "FastAPI", "Data Pipelines"],
+    tech: ["Python", "GenAI", "RAG", "LLMs", "React", "Supabase", "FastAPI", "Prompt Eng."],
+    confidential: true,
     color: "indigo",
+  },
+  {
+    company: "Angel One",
+    role: "Data Science Intern",
+    period: "Aug 2025 – Mar 2026",
+    type: "Past",
+    location: "India · Remote",
+    description:
+      "Applied machine learning and analytics on large-scale financial and trading data at one of India's largest retail stock-broking & fintech platforms — turning market and user-behaviour signals into actionable models.",
+    highlights: [
+      "Built predictive models on customer trading behaviour — engagement, retention, and churn-propensity scoring",
+      "Engineered features from high-volume market and transactional datasets for downstream ML pipelines",
+      "Ran A/B tests and statistical analyses to quantify the impact of product and engagement experiments",
+      "Developed analytics dashboards and automated reporting to surface insights for business stakeholders",
+      "Collaborated with cross-functional teams to translate data findings into product and growth decisions",
+    ],
+    tech: ["Python", "Pandas", "Scikit-learn", "SQL", "A/B Testing", "Feature Engineering", "Fintech"],
+    color: "blue",
   },
   {
     company: "IIT Delhi",
@@ -30,16 +51,16 @@ const experiences = [
     type: "Past",
     location: "New Delhi, India",
     description:
-      "Built TamraBot — a full GenAI + data science system combining classical NLP, intent classification models, and LLM orchestration for healthcare question-answering. 79–81% classification accuracy.",
+      "Built TamraBot — a full GenAI + data science system combining classical NLP, intent classification, and LLM orchestration for Ayurvedic healthcare question-answering. 79–81% intent classification accuracy.",
     highlights: [
       "Designed end-to-end data pipeline: corpus collection → preprocessing → feature engineering → model training",
-      "Built multi-stage NLP classifier for intent detection and medical entity extraction on domain-specific data",
+      "Built a multi-stage NLP pipeline for intent detection and medical entity extraction on domain-specific data",
       "Integrated OpenRouter for multi-LLM fallback (GPT-4, Claude, Mistral), ensuring 99%+ uptime",
-      "Achieved 79–81% intent classification accuracy — benchmark on custom Ayurvedic healthcare dataset",
+      "Achieved 79–81% intent classification accuracy on a custom Ayurvedic healthcare dataset",
       "Wrapped everything in a production FastAPI microservice with session management for multi-turn context",
-      "Applied data science techniques: TF-IDF baselines → transformer fine-tuning → ensemble voting",
     ],
     tech: ["Python", "NLP", "Transformers", "FastAPI", "OpenRouter", "LLMs", "GenAI", "Healthcare DS"],
+    links: [{ label: "TamraBot — Live", url: "https://tamrabot.vercel.app/" }] as ExpLink[],
     color: "violet",
   },
 ];
@@ -50,12 +71,21 @@ const colorMap = {
     dot: "bg-indigo-500",
     glow: "shadow-indigo-500/10",
     tag: "bg-indigo-500/[0.07] text-indigo-300 border-indigo-500/15",
+    link: "hover:border-indigo-500/40 hover:text-indigo-300",
+  },
+  blue: {
+    badge: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+    dot: "bg-blue-500",
+    glow: "shadow-blue-500/10",
+    tag: "bg-blue-500/[0.07] text-blue-300 border-blue-500/15",
+    link: "hover:border-blue-500/40 hover:text-blue-300",
   },
   violet: {
     badge: "bg-violet-500/10 text-violet-400 border-violet-500/20",
     dot: "bg-violet-500",
     glow: "shadow-violet-500/10",
     tag: "bg-violet-500/[0.07] text-violet-300 border-violet-500/15",
+    link: "hover:border-violet-500/40 hover:text-violet-300",
   },
 };
 
@@ -109,6 +139,12 @@ export default function Experience() {
                           )}
                         </div>
                         <p className="text-zinc-300 font-medium">{exp.role}</p>
+                        {exp.confidential && (
+                          <span className="inline-flex items-center gap-1 mt-2 px-2 py-0.5 text-[10px] font-medium text-zinc-400 bg-white/[0.04] border border-white/[0.08] rounded-full">
+                            <Lock size={9} />
+                            Select work under NDA
+                          </span>
+                        )}
                       </div>
                       <div className="text-right">
                         <div
@@ -134,6 +170,30 @@ export default function Experience() {
                         </li>
                       ))}
                     </ul>
+
+                    {/* Live project links */}
+                    {exp.links && exp.links.length > 0 && (
+                      <div className="mb-5">
+                        <p className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500 mb-2.5 flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
+                          Live Deployments
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {exp.links.map((l) => (
+                            <a
+                              key={l.url}
+                              href={l.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-zinc-300 bg-white/[0.03] border border-white/[0.08] rounded-lg transition-colors cursor-pointer ${c.link}`}
+                            >
+                              {l.label}
+                              <ExternalLink size={11} />
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
                     {/* Tech tags */}
                     <div className="flex flex-wrap gap-2">

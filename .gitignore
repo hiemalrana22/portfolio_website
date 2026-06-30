@@ -18,3 +18,9 @@ node_modules/
 .DS_Store
 *.pem
 npm-debug.log*
+
+# typescript build cache
+*.tsbuildinfo
+
+# local editor / agent config
+.claude/

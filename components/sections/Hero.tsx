@@ -81,7 +81,7 @@ export default function Hero() {
           <span className="text-indigo-400">Generative AI pipelines</span>,{" "}
           <span className="text-violet-400">LLM-powered products</span>, and{" "}
           <span className="text-blue-400">production ML systems</span> that
-          create real-world impact. Previously at IIT Delhi.
+          create real-world impact. Previously at IIT Delhi &amp; Angel One.
         </motion.p>
 
         {/* CTAs */}
